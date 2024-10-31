@@ -9,7 +9,7 @@ Guidelines for graph representing the collection of islands:
 4. Weight of AB may be different from BA
 
 Island Characteristics:
-1. # of people
+1. Number of people
 2. At least 3 different resource types
 
 
