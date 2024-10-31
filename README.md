@@ -22,3 +22,10 @@ Traversal Characteristics:
 For each scenario, include:
 1. A description of the algorithm used to implement the solution
 2. Source code of algorithm that computes the most efficient solution
+
+## Complete in order
+1. Create a visual representation of islands using a directed graph
+   - Map out location of each island in region
+   - Connect the graph using directed edges with weights corresponding to realistc travel times between islands
+   - Give each island 5 properties (population, resource1, resource2, resource3, touristTime)
+   - 
