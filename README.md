@@ -28,6 +28,7 @@ For each scenario, include:
    - Map out location of each island in region
    - Connect the graph using directed edges with weights corresponding to realistc travel times between islands
    - Give each island 5 properties (population, resource1, resource2, resource3, touristTime)
-2. Implement algorithm, Problem 1
+2. Implement Graph Class in Javascript
+3. Implement algorithm, Problem 1
    - Use (Dijkstra’s?) algorithnm with priority queue considering population of each island
    - Write a short paragraph explaning how the implemented algorithm would search for the shortest path between each island, considering      the population of each island.
