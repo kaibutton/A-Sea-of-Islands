@@ -24,17 +24,17 @@ class Graph {
     }//Closes addVertex(vertex)
   
     // Add a directed edge from vertex u to vertex v with a given weight
-    addEdge(u, v, weight) {
+    addEdge(edge) {
       // Ensure both vertices exist, weight is non-negative
-      if (!this.adjacencyList.has(u.name) || !this.adjacencyList.has(v.name)) {
+      if (!this.adjacencyList.has(edge.getU().name) || !this.adjacencyList.has(edge.getV().name)) {
         throw new Error("Both vertices must exist before adding an edge.");
       }
-      if (weight < 0) {
+      if (edge.getWeight() < 0) {
         throw new Error("Edge weights cannot be negative");
       }
   
       // Add edge (u -> v) with weight
-      this.adjacencyList.get(u.name).edges.push({ node: v.name, weight: weight });
+      this.adjacencyList.get(edge.getU().name).edges.push(edge);
     }//Closes addEdge(u, v, weight)
   
     // Display the graph
@@ -46,7 +46,7 @@ class Graph {
         console.log(
           `${i}. ${name} (Population: ${population}, Resources: ${resource1}, ${resource2}, ${resource3})`
         );
-        const edgeList = edges.map(edge => `${edge.node} (weight: ${edge.weight})`).join(", ");
+        const edgeList = edges.map(edge => `${edge.getV().name} (weight: ${edge.getWeight()})`).join(", ");
         console.log(`   Edges: ${edgeList} \n`);
         i++;
       }
@@ -65,10 +65,22 @@ class Graph {
   }//Closes Graph class
 
   class Edge {
-    constructor(u, v, weight) {
-      this.u = u;
-      this. v = v;
-      this.weight = weight;
+    constructor(u, v, weight) {// start: u, end: v
+      this.u = u; //object
+      this.v = v; //object
+      this.weight = weight; // integer
+    }
+
+    getWeight() {
+      return this.weight;
+    }
+
+    getU() {
+      return this.u;
+    }
+
+    getV() {
+      return this.v;
     }
   }
   
@@ -91,21 +103,20 @@ class Graph {
 
   // Define edges with weights
   const edges = [
-    { u: hawaii, v: samoa, weight: 10 },
-    { u: hawaii, v: tahiti, weight: 15 },
-    { u: samoa, v: tahiti, weight: 5 },
-    { u: tahiti, v: new_zealand, weight: 20 },
-    { u: tahiti, v: tonga, weight: 25 },
-    { u: new_zealand, v: tonga, weight: 30 },
-    { u: new_zealand, v: hawaii, weight: 35 },
-    { u: tonga, v: samoa, weight: 40 },
+    edgeA = new Edge(hawaii, samoa, 10),
+    edgeB = new Edge(hawaii, tahiti, 15),
+    edgeC = new Edge(samoa, tahiti, 5),
+    edgeD = new Edge(tahiti, new_zealand, 78),
+    edgeE = new Edge(tahiti, tonga, 25),
+    edgeF = new Edge(new_zealand, tonga, 30),
+    edgeG = new Edge(new_zealand, hawaii, 35),
+    edgeH = new Edge(tonga, samoa, 40)
   ];
 
 // Add edges to the graph
 edges.forEach((edge) => {
-  graph.addEdge(edge.u, edge.v, edge.weight);
+  graph.addEdge(edge);
 });
   
 graph.display();
-//console.log(`console.log(adjacencylist):  ${graph.getAdjacenctyList()}`);
   
