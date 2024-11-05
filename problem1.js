@@ -66,8 +66,8 @@ class Graph {
 
   class Edge {
     constructor(u, v, weight) {// start: u, end: v
-      this.u = u; //object
-      this.v = v; //object
+      this.u = u; //vertex
+      this.v = v; //vertex
       this.weight = weight; // integer
     }
 
