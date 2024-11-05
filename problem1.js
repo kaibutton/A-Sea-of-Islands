@@ -25,9 +25,12 @@ class Graph {
   
     // Add a directed edge from vertex u to vertex v with a given weight
     addEdge(u, v, weight) {
-      // Ensure both vertices exist
+      // Ensure both vertices exist, weight is non-negative
       if (!this.adjacencyList.has(u.name) || !this.adjacencyList.has(v.name)) {
         throw new Error("Both vertices must exist before adding an edge.");
+      }
+      if (weight < 0) {
+        throw new Error("Edge weights cannot be negative");
       }
   
       // Add edge (u -> v) with weight
@@ -60,6 +63,14 @@ class Graph {
       }
     }
   }//Closes Graph class
+
+  class Edge {
+    constructor(u, v, weight) {
+      this.u = u;
+      this. v = v;
+      this.weight = weight;
+    }
+  }
   
   // Example usage:
   let graph = new Graph();
@@ -95,6 +106,6 @@ edges.forEach((edge) => {
   graph.addEdge(edge.u, edge.v, edge.weight);
 });
   
-//graph.display();
-console.log(`console.log(adjacencylist):  ${graph.getAdjacenctyList()}`);
+graph.display();
+//console.log(`console.log(adjacencylist):  ${graph.getAdjacenctyList()}`);
   
