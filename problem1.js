@@ -11,15 +11,14 @@ class Graph {
     addVertex(vertex) {
 
       // Ensure vertex has all necessary properties
-      const { name, population, resource1, resource2, resource3 } = vertex;
-      if (!name || population == undefined || resource1 == undefined || resource2 == undefined || resource3 == undefined) {
+      if (!vertex.getName() || vertex.getPopulation() == undefined || vertex.getResource1() == undefined || vertex.getResource2() == undefined || vertex.getResource3() == undefined) {
         throw new Error("Vertex must have 'name', 'population', 'resource1', 'resource2', and 'resource3' properties.");
       }
     
 
       // Add vertex if it doesn't already exist
-      if (!this.adjacencyList.has(name)) {
-        this.adjacencyList.set(name, { ...vertex, edges: [] });
+      if (!this.adjacencyList.has(vertex.getName())) {
+        this.adjacencyList.set(vertex.getName(), { vertex: vertex, edges: [] });
       }
     }//Closes addVertex(vertex)
   
@@ -41,10 +40,10 @@ class Graph {
     display() {
       console.log("--- Display Graph ---");
       let i = 1; //iterator
-      for (let [name, vertex] of this.adjacencyList) {
-        const { population, resource1, resource2, resource3, edges } = vertex;
+      for (let [name, {vertex, edges}] of this.adjacencyList) {
+        //const { population, resource1, resource2, resource3, edges } = vertex;
         console.log(
-          `${i}. ${name} (Population: ${population}, Resources: ${resource1}, ${resource2}, ${resource3})`
+          `${i}. ${vertex.getName()} (Population: ${vertex.getPopulation()}, Resources: ${vertex.getResource1()}, ${vertex.getResource2()}, ${vertex.getResource3()})`
         );
         const edgeList = edges.map(edge => `${edge.getV().name} (weight: ${edge.getWeight()})`).join(", ");
         console.log(`   Edges: ${edgeList} \n`);
@@ -55,9 +54,9 @@ class Graph {
     listVertices() {
       let i = 1; //iterator
       console.log('Island Vertices:');
-      for (let [name, vertex] of this.adjacencyList) {
+      for (let [name, { vertex, edges }] of this.adjacencyList) {
         console.log(
-          `${i}. ${name}`
+          `${i}. ${vertex.getName()}`
         );
         i++;
       }
@@ -83,23 +82,51 @@ class Graph {
       return this.v;
     }
   }
+
+  class Vertex {
+    constructor (name, population, resource1, resource2, resource3) {
+      this.name = name; //string
+      this.population = population; //integer
+      this.resource1 = resource1; //integer
+      this.resource2 = resource2; //integer
+      this.resource3 = resource3; //integer
+    }
+
+    getName() {
+      return this.name;
+    }
+
+    getPopulation() {
+      return this.population;
+    }
+
+    getResource1() {
+      return this.resource1;
+    }
+
+    getResource2() {
+      return this.resource2;
+    }
+
+    getResource3() {
+      return this.resource3;
+    }
+  }
   
   // Example usage:
   let graph = new Graph();
 
   // Creating Islands as Verticies
-  const hawaii = { name: "Hawaii", population: 1000, resource1: 50, resource2: 30, resource3: 20 };
-  const samoa = { name: "Samoa", population: 800, resource1: 20, resource2: 40, resource3: 10 };
-  const tahiti = { name: "Tahiti", population: 1200, resource1: 60, resource2: 20, resource3: 25 };
-  const new_zealand = { name: "New Zealand", population: 1260, resource1: 20, resource2: 27, resource3: 235 };
-  const tonga = { name: "Tonga", population: 2300, resource1: 650, resource2: 242, resource3: 215 };
+  const vertices = [
+    hawaii = new Vertex("Hawaii", 1000, 50, 30, 20),
+    samoa = new Vertex("Samoa", 800, 20, 40, 10),
+    tahiti = new Vertex("Tahiti", 1200, 60, 20, 25),
+    new_zealand = new Vertex("New Zealand", 1260, 20, 27, 235),
+    tonga = new Vertex("Tonga", 2300, 650, 242, 215)
+  ]
   
   // Adding Islands to Graph
-  graph.addVertex(hawaii);
-  graph.addVertex(samoa);
-  graph.addVertex(tahiti);
-  graph.addVertex(tonga);
-  graph.addVertex(new_zealand);
+  vertices.forEach((vertex) => {graph.addVertex(vertex)});
 
   // Define edges with weights
   const edges = [
@@ -114,9 +141,7 @@ class Graph {
   ];
 
 // Add edges to the graph
-edges.forEach((edge) => {
-  graph.addEdge(edge);
-});
+edges.forEach((edge) => {graph.addEdge(edge)});
   
 graph.display();
   
