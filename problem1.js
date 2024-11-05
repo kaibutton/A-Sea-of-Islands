@@ -4,7 +4,15 @@ class Graph {
     }
 
     getAdjacenctyList() {
-      console.log(this.adjacencyList);
+      return this.adjacencyList;
+    }
+
+    vertexList() {
+      const vertexArray = [];
+      for (let [name, { vertex, edges }] of this.adjacencyList) {
+        vertexArray.push(vertex);
+      }
+      return vertexArray;
     }
   
     // Add a vertex to the graph with specific properties
